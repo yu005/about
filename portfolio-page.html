@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的作品集</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #101827;
+            color: #fff;
+            padding-bottom: 40px;
+        }
+
+        .page-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 25px;
+            background-color: rgba(0, 123, 255, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgba(0, 100, 220, 0.9);
+        }
+
+        .portfolio-title {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #e0f2ff;
+            text-align: center;
+        }
+
+        .portfolio-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-7px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .portfolio-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            width: calc(33.333% - 25px);
+            min-width: 280px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            animation-name: floatAnimation;
+            animation-duration: 3.5s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            display: flex;
+            /* 為了website-item內容對齊 */
+            flex-direction: column;
+            /* 為了website-item內容對齊 */
+        }
+
+        .portfolio-item:hover {
+            animation-play-state: paused;
+            transform: translateY(-12px);
+            box-shadow: 0 16px 35px rgba(0, 123, 255, 0.35);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 200px;
+            display: block;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* 新增：網站連結類型卡片的特定樣式 */
+        .portfolio-item.website-item {
+            padding: 25px;
+            /* 給文字內容一些內邊距 */
+            justify-content: space-around;
+            /* 垂直方向上分散對齊內容 */
+            align-items: center;
+            /* 水平居中內容 */
+            text-align: center;
+            /* 文字居中 */
+            min-height: 200px;
+            /* 與圖片項目大致相同的高度 */
+        }
+
+        .website-item-content {}
+
+        /* 可用於進一步包裹內容 */
+
+        .website-item-content h4 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #e0f2ff;
+            font-size: 1.3em;
+            /* 網站標題大小 */
+        }
+
+        .website-item-content p {
+            font-size: 0.85em;
+            color: #cce7ff;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            max-height: 70px;
+            /* 限制描述高度，超出部分可考慮隱藏或允許滾動 */
+            overflow: hidden;
+            /* 暫時隱藏超出的描述 */
+        }
+
+        .website-link-button {
+            display: inline-block;
+            padding: 10px 22px;
+            background-color: rgba(0, 123, 255, 0.7);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .website-link-button:hover {
+            background-color: rgba(0, 100, 220, 0.95);
+            transform: scale(1.05);
+        }
+
+
+        @media (max-width: 992px) {
+            .portfolio-item {
+                width: calc(50% - 25px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .portfolio-item {
+                width: calc(100% - 25px);
+                min-width: unset;
+            }
+
+            .portfolio-title {
+                font-size: 2em;
+            }
+
+            .website-item-content h4 {
+                font-size: 1.2em;
+            }
+
+            .website-item-content p {
+                font-size: 0.8em;
+                max-height: 60px;
+            }
+        }
+
+        /* Modal (Lightbox) Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.88);
+            padding-top: 30px;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 85%;
+            max-height: 80vh;
+            animation-name: zoomInModal;
+            animation-duration: 0.4s;
+        }
+
+        @keyframes zoomInModal {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-caption {
+            margin: 15px auto 0 auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            font-size: 1em;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 45px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <a href="index.html" class="back-button">返回首頁</a>
+        <h1 class="portfolio-title">我的作品集</h1>
+
+        <div class="portfolio-gallery" id="portfolioGallery">
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close-button" id="closeModalButton">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption" class="modal-caption"></div>
+    </div>
+
+    <script>
+        const worksData = [
+            {
+                type: "website", // 特殊類型標識
+                id: "pu-food-project", // 給它一個唯一的ID
+                title: "網頁課程作品",
+                description: "這是我在「網頁設計」課程中製作的靜態網站，介紹了校園附近的美食地點，運用了HTML、CSS和基礎JavaScript。",
+                url: "https://www1.pu.edu.tw/~s1122100/2024spring/wed/html/home1.html"
+            },
+            { id: "1pJN8PsT7FNEDZ5rQtGAA4lymKWnqpEPj", title: "攝影作品一 (可選)" },
+            { id: "1Kws4F0BgzphmFKMILoHMkGjIQN1_NgYI", title: "攝影作品一 (可選)" },
+            { id: "1QHWubsMUmjiBUcMJwmJ5ipUAm7vqQg9M", title: "攝影作品一 (可選)" },
+            { id: "1JvqB8-za8IGWCJ8uhH5FgoPTgrQIL-yd", title: "設計作品B (可選)" },
+            { id: "1RIK2v0OxII1WFmUwdrt7Z17dB1BA-1GI", title: "插畫作品C (可選)" },
+            // 新增您的網頁連結項目
+
+            // 其他圖片作品可以繼續添加...
+            { id: "1IAOOl0tEWDAvSn3LHfM23O2kRBNdq-7F", title: "攝影作品二 (可選)" },
+            { id: "1JEt5FL-W9GgEGfpovJtuJ1Qf7m-CVYJh", title: "設計作品D (可選)" },
+            { id: "18KTzWja9wBY831eGS37oN-RAuXeDhmag", title: "插畫作品E (可選)" },
+            { id: "1zC6EcIGGUN_QOSHFikCM8rl-LFk3vYFE", title: "其他作品F (可選)" }
+        ];
+
+        const galleryContainer = document.getElementById('portfolioGallery');
+
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaptionText = document.getElementById('modalCaption');
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        function openImageModal(src, altText) {
+            modal.style.display = "block";
+            modalImg.src = src;
+            modalCaptionText.textContent = altText;
+        }
+
+        closeModalButton.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        modal.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        worksData.forEach((work, index) => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('portfolio-item');
+            itemDiv.style.animationDelay = `${index * 0.2}s`;
+
+            if (work.type === 'website') {
+                // 處理網站連結項目
+                itemDiv.classList.add('website-item'); // 添加特定class以應用不同樣式
+
+                const contentDiv = document.createElement('div');
+                contentDiv.classList.add('website-item-content');
+
+                const titleH4 = document.createElement('h4');
+                titleH4.textContent = work.title;
+
+                const descriptionP = document.createElement('p');
+                descriptionP.textContent = work.description;
+
+                const linkButton = document.createElement('a');
+                linkButton.classList.add('website-link-button');
+                linkButton.href = work.url;
+                linkButton.target = "_blank"; // 在新分頁開啟外部連結
+                linkButton.rel = "noopener noreferrer"; // 安全性考量
+                linkButton.textContent = "前往網站";
+
+                contentDiv.appendChild(titleH4);
+                contentDiv.appendChild(descriptionP);
+                contentDiv.appendChild(linkButton);
+                itemDiv.appendChild(contentDiv);
+
+            } else {
+                // 處理圖片項目 (原有邏輯)
+                const img = document.createElement('img');
+                const imgSrc = `https://drive.google.com/thumbnail?id=${work.id}&sz=w1366`;
+                const altText = work.title || `作品圖片 ${index + 1}`;
+                img.src = imgSrc;
+                img.alt = altText;
+
+                img.onclick = function () {
+                    openImageModal(imgSrc, altText);
+                };
+                itemDiv.appendChild(img);
+            }
+            galleryContainer.appendChild(itemDiv);
+        });
+    </script>
+</body>
+
+</html>

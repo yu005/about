@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>我的作品集</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="content">
+                <h2>01</h2>
+                <h3>關於我</h3>
+                <p>履歷自介</p>
+                <a href="https://drive.google.com/file/d/1yaRzvDTsWblJN7AMs4RLwcT9IIyJnB91/view?usp=sharing"
+                    target="_blank" rel="noopener noreferrer">查看完整履歷 (PDF)</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2>02</h2>
+                <h3>成績單</h3>
+                <p>點擊下方按鈕即可查看我的詳細學業成績紀錄。</p>
+                <a href="#" class="view-transcript-button">查看成績單</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2>03</h2>
+                <h3>我的作品集</h3>
+                <p>這裡精選了我的部分專案與設計成果。點擊下方按鈕，瀏覽我的完整作品集，了解更多我的技能與實踐經驗。</p>
+                <a href="portfolio-page.html">瀏覽作品</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script>
+        VanillaTilt.init(document.querySelectorAll(".card"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.8
+        });
+    </script>
+</body>
+
+</html>

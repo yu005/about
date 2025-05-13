@@ -1,0 +1,265 @@
+/* 引入网络字体：Poppins */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+* {
+    /* 初始化 */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* 设置字体 */
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    /* 100%窗口高度 */
+    min-height: 100vh;
+    /* 弹性布局 水平+垂直居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #101827;
+    /* 更深的蓝色背景 */
+    padding: 20px 0;
+    /* 为内容较多时方便滚动，在上下添加内边距 */
+}
+
+/* 给背景增加两个渐变圆 */
+body::before {
+    content: "";
+    /* 绝对定位 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 渐变背景 - 主要的蓝色系渐变 */
+    background: linear-gradient(#0072ff, #00c6ff);
+    /* 较明亮的蓝色系渐变 */
+    /* 将元素剪切为一个圆形【30%表示圆的直径】【right 70%表示圆心位置】 */
+    clip-path: circle(30% at right 70%);
+    z-index: -1;
+    /* 因为是背景，所以层级在容器之后 */
+}
+
+body::after {
+    content: "";
+    /* 绝对定位 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 渐变背景 - 点缀的蓝色系渐变 */
+    background: linear-gradient(#1e3c72, #2a5298);
+    /* 较暗的蓝色系渐变 */
+    /* 将元素剪切为一个圆形【20%表示圆的直径】【10% 10%表示圆心位置】 */
+    clip-path: circle(25% at 10% 10%);
+    z-index: -1;
+    /* 因为是背景，所以层级在容器之后 */
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* 即使卡片换行也能适应 */
+    max-width: 1200px;
+    /* 设置容器最大宽度 */
+    margin: 0 auto;
+    /* 居中对齐 */
+    z-index: 1;
+}
+
+.container .card {
+    /* 相对定位 */
+    position: relative;
+    width: 300px;
+    /* 宽度稍作增加 */
+    height: 420px;
+    /* 高度稍作调整 */
+    background-color: rgba(255, 255, 255, 0.08);
+    /* 玻璃的透明度稍作调整 */
+    margin: 25px;
+    /* 卡片间的边距 */
+    border-radius: 20px;
+    /* 圆角稍大一些 */
+    /* 阴影 */
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.4);
+    /* 溢出隐藏 */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    border-left: 1px solid rgba(255, 255, 255, 0.4);
+    /* 背景模糊 */
+    backdrop-filter: blur(8px);
+    /* 调整模糊程度 */
+}
+
+.container .card .content {
+    padding: 25px;
+    /* 调整内边距 */
+    text-align: center;
+    /* 默认下移+隐藏 */
+    transform: translateY(100px);
+    opacity: 0;
+    transition: 0.6s;
+    /* 过渡时间稍长一些 */
+}
+
+.container .card:hover .content {
+    /* 鼠标移入，上移+显示 */
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.container .card .content h2 {
+    position: absolute;
+    top: -70px;
+    /* 调整位置 */
+    right: 20px;
+    /* 调整位置 */
+    font-size: 110px;
+    /* 调整大小 */
+    color: rgba(200, 220, 255, 0.1);
+    /* 带一点蓝色的半透明白色 */
+    pointer-events: none;
+    /* 防止编号干扰点击事件 */
+}
+
+.container .card .content h3 {
+    font-size: 26px;
+    /* 调整字体大小 */
+    color: #e0f2ff;
+    /* 稍亮的带蓝色的白色 */
+    margin-bottom: 10px;
+}
+
+.container .card .content p,
+.container .card .content ul {
+    font-size: 15px;
+    /* 调整字体大小 */
+    color: #cce7ff;
+    /* 稍亮的带蓝色的白色 */
+    font-weight: 300;
+    margin: 10px 0 15px 0;
+    line-height: 1.6;
+}
+
+.container .card .content ul {
+    list-style: none;
+    /* 去掉列表的项目符号 */
+    padding-left: 0;
+    /* 去掉左侧内边距 */
+    text-align: left;
+    /* 技能列表左对齐可能更易读 */
+}
+
+.container .card .content ul li {
+    margin-bottom: 8px;
+    /* 各列表项之间的间距 */
+}
+
+
+.container .card .content a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 22px;
+    /* 调整内边距 */
+    margin-top: 20px;
+    /* 调整上边距 */
+    background-color: rgba(0, 123, 255, 0.8);
+    /* 蓝色系背景色，带一点透明度 */
+    color: #fff;
+    /* 文字颜色设为白色 */
+    text-decoration: none;
+    border-radius: 25px;
+    /* 调整圆角 */
+    font-weight: 500;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container .card .content a:hover {
+    background-color: rgba(0, 100, 220, 0.9);
+    /* 悬停时背景色稍深一些 */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+    /* 悬停时阴影加重 */
+}
+
+/* Modal (Lightbox) Styles - 添加到您的 style.css 檔案 */
+.modal {
+    display: none;
+    /* 預設隱藏 */
+    position: fixed;
+    /* 固定位置，覆蓋整個頁面 */
+    z-index: 1000;
+    /* 確保在最上層 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* 如果內容過長，允許滾動 */
+    background-color: rgba(0, 0, 0, 0.88);
+    /* 半透明黑色背景 */
+    padding-top: 50px;
+    /* 內容與頂部的距離 */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 85%;
+    /* 最大寬度為螢幕的85% */
+    max-height: 85vh;
+    /* 最大高度為視窗高度的85% */
+    animation-name: zoomInModalEffect;
+    /* 動畫效果 */
+    animation-duration: 0.4s;
+}
+
+@keyframes zoomInModalEffect {
+
+    /* Modal 內容的縮放動畫 */
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-caption {
+    margin: 15px auto 0 auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 45px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
